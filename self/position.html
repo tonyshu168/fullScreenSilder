@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>position</title>
+</head>
+<body>
+
+<p>fisrt</p><p>end</p>
+
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+  var p = $("p:first");
+  var position = p.position();
+  $("p:last").html("left: " + position.left + ",top: " + position.top);
+</script>
+</body>
+</html>

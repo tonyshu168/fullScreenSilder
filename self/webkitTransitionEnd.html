@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>移动手机web页面多次触发webkitTransitionEnd的问题</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <style type="text/css">
+    .target{width: 100px; height: 100px; background: #ff0000;}
+    .target{-webkit-transition: all 0.25s ease-in; transition: all 0.25s ease-in;}
+    .target.on{-webkit-transform: translate(100px, 0); transform: translate(100px 0);}
+  </style>
+</head>
+<body> 
+
+<div class="viewArea anime">
+  <div class="target" style="margin: 0px;"></div>
+  <p class="count"></p>
+  <p class="tmstnCount"></p>
+  <a href="#" class="btn01" style="color:blue">执行animation动画</a>
+</div>
+
+<script type="text/javascript">
+  function sample(){
+    var target = document.querySelector(".target"),
+        count = document.querySelector(".count"),
+        btn = document.querySelector(".btn01"),
+        tmstnCount = document.querySelector(".tmstnCount");
+        countNum = 0,
+        tmstnCountNum = 0;
+
+       
+    target.addEventListener("webkitTransitionEnd", end, false);
+    btn.addEventListener("click", tStart, false);
+    function tStart(e){
+      e.preventDefault();
+      countNum++;
+      target.classList.add("on");
+      count.innerHTML = "动画执行次数:" + countNum;
+      return false;
+    }
+
+    function end(){
+      tmstnCountNum ++;
+      console.log(target.className);
+      target.classList.remove("on");
+      console.log(tmstnCount); 
+      tmstnCount.innerHTML = "webkitTranstionEnd事件触发次数:" + tmstnCountNum;
+      return false;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded",sample,false);
+</script>
+
+</body>
+</html>
